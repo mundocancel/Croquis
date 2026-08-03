@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Croquis de Ventanas - Con Medidas</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+            background: #f0f0f0;
+            padding: 20px;
+        }
+        .page {
+            max-width: 1200px;
+            margin: 0 auto 30px auto;
+            background: white;
+            padding: 25px 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+            page-break-after: always;
+            break-after: page;
+        }
+        h1 {
+            font-size: 24px;
+            border-bottom: 3px solid #1a1a1a;
+            padding-bottom: 6px;
+            margin-bottom: 16px;
+            color: #111;
+        }
+        .level-tag {
+            font-size: 18px;
+            background: #1a1a1a;
+            color: white;
+            padding: 6px 16px;
+            border-radius: 6px;
+            display: inline-block;
+            margin: 10px 0 14px 0;
+        }
+        .subtitle {
+            font-size: 15px;
+            font-weight: 600;
+            color: #333;
+            margin: 12px 0 6px 0;
+            background: #eaeaea;
+            padding: 4px 14px;
+            border-radius: 4px;
+        }
+
+        /* === CUADRICULA DE CROQUIS === */
+        .croquis-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 18px;
+            margin: 12px 0 18px 0;
+        }
+        .croquis-item {
+            border: 2px solid #222;
+            border-radius: 10px;
+            padding: 10px 8px 8px 8px;
+            background: #fafafa;
+            text-align: center;
+        }
+        .croquis-item .codigo {
+            font-weight: 700;
+            font-size: 17px;
+            background: #222;
+            color: white;
+            display: inline-block;
+            padding: 1px 16px;
+            border-radius: 20px;
+            margin-bottom: 4px;
+        }
+        .croquis-item .tipo {
+            font-size: 12px;
+            color: #555;
+            margin-top: 2px;
+        }
+        .croquis-item .medidas {
+            font-size: 12px;
+            color: #0055aa;
+            font-weight: 600;
+            margin-top: 2px;
+        }
+        .croquis-svg {
+            width: 100%;
+            max-width: 180px;
+            height: auto;
+            display: block;
+            margin: 4px auto;
+        }
+        .croquis-item .nivel-info {
+            font-size: 11px;
+            color: #777;
+            margin-top: 3px;
+            background: #eee;
+            border-radius: 4px;
+            padding: 2px 6px;
+        }
+
+        /* === LISTA DE MATERIALES === */
+        .material-list {
+            background: #f7f7f7;
+            border-left: 5px solid #1a1a1a;
+            padding: 12px 18px;
+            margin: 10px 0 6px 0;
+            border-radius: 0 6px 6px 0;
+            font-size: 13.5px;
+            columns: 2 280px;
+            column-gap: 25px;
+        }
+        .material-list ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .material-list li {
+            padding: 2px 0 2px 18px;
+            position: relative;
+            line-height: 1.5;
+        }
+        .material-list li::before {
+            content: "▸";
+            position: absolute;
+            left: 0;
+            color: #1a1a1a;
+            font-weight: bold;
+        }
+        .material-list .highlight {
+            background: #fff3cd;
+            padding: 1px 6px;
+            border-radius: 3px;
+            font-weight: 600;
+        }
+        .obs {
+            background: #fff0f0;
+            border: 1px solid #d32f2f;
+            padding: 10px 16px;
+            border-radius: 6px;
+            margin: 12px 0 4px 0;
+            color: #a00;
+            font-weight: 500;
+        }
+        .footer-note {
+            font-size: 12px;
+            color: #666;
+            border-top: 1px dashed #aaa;
+            padding-top: 10px;
+            margin-top: 14px;
+            text-align: center;
+        }
+
+        @media print {
+            body { background: white; padding: 8px; }
+            .page { box-shadow: none; border: 1px solid #ccc; padding: 16px 20px; }
+            .croquis-item { border-color: #333; }
+            .level-tag { background: #000 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            .material-list { background: #f3f3f3; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            .obs { background: #ffe6e6; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            .croquis-item .codigo { background: #000 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+        }
+        @media (max-width: 600px) {
+            .material-list { columns: 1; }
+            .croquis-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ============================================================ -->
+<!-- ==================== PLANTA BAJA =========================== -->
+<!-- ============================================================ -->
+<div class="page">
+    <h1>📐 DEPARTAMENTO PLASCENCIA – PLANTA BAJA (PB)</h1>
+    <p><strong>Aluminio:</strong> Negro Textura &nbsp;|&nbsp; <strong>Nivel:</strong> Planta Baja (N. +0.65m)</p>
+
+    <div class="subtitle">📍 Croquis con medidas</div>
+    <div class="croquis-grid">
+
+        <!-- V-01 -->
+        <div class="croquis-item">
+            <span class="codigo">V-01</span>
+            <svg class="croquis-svg" viewBox="0 0 200 120">
+                <rect x="10" y="10" width="180" height="100" fill="none" stroke="#111" stroke-width="3"/>
+                <text x="100" y="62" font-size="16" text-anchor="middle" fill="#333">V-01</text>
+                <text x="100" y="20" font-size="11" text-anchor="middle" fill="#0066cc">1.99</text>
+                <text x="190" y="65" font-size="11" text-anchor="end" fill="#0066cc">2.40</text>
+                <line x1="100" y1="10" x2="100" y2="110" stroke="#111" stroke-width="1.5" stroke-dasharray="4,4"/>
+                <text x="100" y="110" font-size="10" text-anchor="middle" fill="#0066cc">1.00 + 1.00</text>
+            </svg>
+            <div class="tipo">Ventana corrediza 2 hojas</div>
+            <div class="medidas">1.99 m ancho × 2.40 m alto</div>
+            <div class="nivel-info">📍 Planta Baja (N. +0.65m)</div>
+        </div>
+
+        <!-- V-04 -->
+        <div class="croquis-item">
+            <span class="codigo">V-04</span>
+            <svg class="croquis-svg" viewBox="0 0 160 120">
+                <rect x="10" y="10" width="140" height="100" fill="none" stroke="#111" stroke-width="3"/>
+                <text x="80" y="62" font-size="16" text-anchor="middle" fill="#333">V-04</text>
+                <text x="80" y="20" font-size="11" text-anchor="middle" fill="#0066cc">0.74</text>
+                <text x="150" y="65" font-size="11" text-anchor="end" fill="#0066cc">1.90</text>
+                <line x1="80" y1="10" x2="80" y2="110" stroke="#111" stroke-width="1.5" stroke-dasharray="4,4"/>
+                <text x="80" y="110" font-size="10" text-anchor="middle" fill="#0066cc">0.74</text>
+                <rect x="30" y="40" width="16" height="50" fill="none" stroke="#d32f2f" stroke-width="1.5"/>
+                <rect x="114" y="40" width="16" height="50" fill="none" stroke="#d32f2f" stroke-width="1.5"/>
+            </svg>
+            <div class="tipo">Ventana con rejillas / louver</div>
+            <div class="medidas">0.74 m ancho × 1.90 m alto</div>
+            <div class="nivel-info">📍 Planta Baja (N. +0.65m) — REJILLAS MCA. DEFLECTO HS4W</div>
+        </div>
+
+        <!-- V-05 -->
+        <div class="croquis-item">
+            <span class="codigo">V-05</span>
+            <svg class="croquis-svg" viewBox="0 0 200 120">
+                <rect x="10" y="10" width="180" height="100" fill="none" stroke="#111" stroke-width="3"/>
+                <text x="100" y="62" font-size="16" text-anchor="middle" fill="#333">V-05</text>
+                <text x="100" y="20" font-size="11" text-anchor="middle" fill="#0066cc">1.99</text>
+                <text x="190" y="65" font-size="11" text-anchor="end" fill="#0066cc">1.60</text>
+                <line x1="100" y1="10" x2="100" y2="110" stroke="#111" stroke-width="1.5" stroke-dasharray="4,4"/>
+                <text x="100" y="110" font-size="10" text-anchor="middle" fill="#0066cc">1.00 + 1.00</text>
+            </svg>
+            <div class="tipo">Ventana corrediza 2 hojas</div>
+            <div class="medidas">1.99 m ancho × 1.60 m alto</div>
+            <div class="nivel-info">📍 Planta Baja (N. +0.65m)</div>
+        </div>
+
+        <!-- V-07 -->
+        <div class="croquis-item">
+            <span class="codigo">V-07</span>
+            <svg class="croquis-svg" viewBox="0 0 160 120">
+                <rect x="10" y="10" width="140" height="100" fill="none" stroke="#111" stroke-width="3"/>
+                <text x="80" y="62" font-size="16" text-anchor="middle" fill="#333">V-07</text>
+                <text x="80" y="20" font-size="11" text-anchor="middle" fill="#0066cc">0.33</text>
+                <text x="150" y="65" font-size="11" text-anchor="end" fill="#0066cc">1.90</text>
+                <line x1="56" y1="10" x2="56" y2="110" stroke="#111" stroke-width="1.5" stroke-dasharray="4,4"/>
+                <line x1="104" y1="10" x2="104" y2="110" stroke="#111" stroke-width="1.5" stroke-dasharray="4,4"/>
+                <text x="80" y="110" font-size="10" text-anchor="middle" fill="#0066cc">0.33 + 0.33 + 0.33</text>
+            </svg>
+            <div class="tipo">Ventana 3 hojas</div>
+            <div class="medidas">0.33 m ancho (c/u) × 1.90 m alto</div>
+            <div class="nivel-info">📍 Planta Baja (N. +0.65m)</div>
+        </div>
+
+        <!-- CAN-01 -->
+        <div class="croquis-item">
+            <span class="codigo">CAN-01</span>
+            <svg class="croquis-svg" viewBox="0 0 160 120">
+                <rect x="10" y="10" width="140" height="100" fill="none" stroke="#111" stroke-width="3"/>
+                <text x="80" y="62" font-size="16" text-anchor="middle" fill="#333">CAN-01</text>
+                <text x="80" y="20" font-size="11" text-anchor="middle" fill="#0066cc">1.37</text>
+                <text x="150" y="65" font-size="11" text-anchor="end" fill="#0066cc">2.00</text>
+                <line x1="56" y1="10" x2="56" y2="110" stroke="#111" stroke-width="1.5" stroke-dasharray="4,4"/>
+                <line x1="104" y1="10" x2="104" y2="110" stroke="#111" stroke-width="1.5" stroke-dasharray="4,4"/>
+                <text x="80" y="110" font-size="10" text-anchor="middle" fill="#0066cc">0.66 + 0.71</text>
+                <circle cx="135" cy="60" r="4" fill="#111"/>
+            </svg>
+            <div class="tipo">Cancel de aluminio</div>
+            <div class="medidas">1.37 m ancho × 2.00 m alto</div>
+            <div class="nivel-info">📍 Planta Baja</div>
+        </div>
+
+        <!-- P-05 -->
+        <div class="croquis-item">
+            <span class="codigo">P-05</span>
+            <svg class="croquis-svg" viewBox="0 0 160 120">
+                <rect x="10" y="10" width="140" height="100" fill="none" stroke="#111" stroke-width="3"/>
+                <rect x="20" y="20" width="120" height="80" fill="none" stroke="#111" stroke-width="1.5"/>
+                <text x="80" y="65" font-size="16" text-anchor="middle" fill="#333">P-05</text>
+                <circle cx="125" cy="60" r="4" fill="#111"/>
+                <text x="80" y="20" font-size="11" text-anchor="middle" fill="#0066cc">1.00</text>
+                <text x="150" y="65" font-size="11" text-anchor="end" fill="#0066cc">2.40</text>
+            </svg>
+            <div class="tipo">Puerta</div>
+            <div class="medidas">1.00 m ancho × 2.40 m alto</div>
+            <div class="nivel-info">📍 Planta Baja</div>
+        </div>
+
+        <!-- P-06 -->
+        <div class="croquis-item">
+            <span class="codigo">P-06</span>
+            <svg class="croquis-svg" viewBox="0 0 160 120">
+                <rect x="10" y="10" width="140" height="100" fill="none" stroke="#111" stroke-width="3"/>
+                <rect x="20" y="20" width="120" height="80" fill="none" stroke="#111" stroke-width="1.5"/>
+                <text x="80" y="65" font-size="16" text-anchor="middle" fill="#333">P-06</text>
+                <circle cx="125" cy="60" r="4" fill="#111"/>
+                <text x="80" y="20" font-size="11" text-anchor="middle" fill="#0066cc">1.00</text>
+                <text x="150" y="65" font-size="11" text-anchor="end" fill="#0066cc">2.40</text>
+            </svg>
+            <div class="tipo">Puerta</div>
+            <div class="medidas">1.00 m ancho × 2.40 m alto</div>
+            <div class="nivel-info">📍 Planta Baja</div>
+        </div>
+
+    </div>
+
+    <div class="subtitle">🧾 Lista de materiales</div>
+    <div class="material-list">
+        <ul>
+            <li><span class="highlight">1</span> Ángulo ³/₁₆ x 1½ (armado, crudo) — sirve 5 torres</li>
+            <li><span class="highlight">2</span> Canal lizo de 2"</li>
+            <li><span class="highlight">2</span> Cerco chapa de 1¾" (4.6)</li>
+            <li><span class="highlight">1</span> Cabezal de 1¾"</li>
+            <li><span class="highlight">1</span> Zoclo de 1¾"</li>
+            <li><span class="highlight">4</span> Junquillos de 1¾"</li>
+            <li><span class="highlight">2</span> Batientes de ¾"</li>
+            <li><span class="highlight">1</span> Ángulo de ½"</li>
+            <li><span class="highlight">1</span> Tubo 1½ x 1½</li>
+            <li><span class="highlight">1</span> Riel de 3"</li>
+            <li><span class="highlight">2</span> Jambas de 3"</li>
+            <li><span class="highlight">1</span> Zoclo doble vena de 3"</li>
+            <li><span class="highlight">1</span> Cabezal de 3"</li>
+            <li><span class="highlight">2</span> Cerco chapa de 3" (6.1)</li>
+            <li><span class="highlight">2</span> Traslape de 3" (6.1)</li>
+            <li><span class="highlight">2</span> Chapas manija</li>
+            <li><span class="highlight">2</span> Pivotes descentrados</li>
+            <li><span class="highlight">4</span> Tensores c/6 tuercas y rondanas</li>
+            <li><span class="highlight">2</span> Carretillas de 3"</li>
+            <li><span class="highlight">1</span> Jaladera de embutir</li>
+            <li><span class="highlight">3</span> kg Vinil de peine 15</li>
+            <li><span class="highlight">2</span> kg Vinil de peine 11</li>
+            <li><span class="highlight">1</span> Hoja vidrio 260×360 c/6mm</li>
+            <li><span class="highlight">1</span> Kit cancel de baño corredizo</li>
+            <li><span class="highlight">5.4</span> m² Vidrio templado c/6mm</li>
+            <li><span class="highlight">*</span> Insumos: pijas, selladores, felpa, emplaye, etc.</li>
+        </ul>
+    </div>
+    <div class="obs">⚠️ <strong>Pendiente:</strong> Rejillas de ventilación (no especificadas para PB).</div>
+    <div class="footer-note">Croquis con medidas tomadas de planos — Escala 1:25</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- ==================== PLANTA N1 ============================= -->
+<!-- ============================================================ -->
+<div class="page">
+    <h1>📐 DEPARTAMENTO PLASCENCIA – PLANTA N1 (Primer Nivel)</h1>
+    <p><strong>Aluminio:</strong> Negro &nbsp;|&nbsp; <strong>Nivel:</strong> N1 (N. +3.25m)</p>
+
+    <div class="subtitle">📍 Croquis con medidas</div>
+    <div class="croquis-grid">
+
+        <!-- V-02 -->
+        <div class="croquis-item">
+            <span class="codigo">V-02</span>
+            <svg class="croquis-svg" viewBox="0 0 160 120">
+                <rect x="10" y="10" width="140" height="100" fill="none" stroke="#111" stroke-width="3"/>
+                <text x="80" y="62" font-size="16" text-anchor="middle" fill="#333">V-02</text>
+                <text x="80" y="20" font-size="11" text-anchor="middle" fill="#0066cc">1.25</text>
+                <text x="150" y="65" font-size="11" text-anchor="end" fill="#0066cc">1.60</text>
+                <line x1="80" y1="10" x2="80" y2="110" stroke="#111" stroke-width="1.5" stroke-dasharray="4,4"/>
+                <text x="80" y="110" font-size="10" text-anchor="middle" fill="#0066cc">0.62 + 0.62</text>
+            </svg>
+            <div class="tipo">Ventana 2 hojas</div>
+            <div class="medidas">1.25 m ancho × 1.60 m alto</div>
+            <div class="nivel-info">📍 Nivel 1 (N. +3.25m)</div>
+        </div>
+
+        <!-- V-04 -->
+        <div class="croquis-item">
+            <span class="codigo">V-04</span>
+            <svg class="croquis-svg" viewBox="0 0 160 120">
+                <rect x="10" y="10" width="140" height="100" fill="none" stroke="#111" stroke-width="3"/>
+                <text x="80" y="62" font-size="16" text-anchor="middle" fill="#333">V-04</text>
+                <text x="80" y="20" font-size="11" text-anchor="middle" fill="#0066cc">0.74</text>
+                <text x="150" y="65" font-size="11" text-anchor="end" fill="#0066cc">1.90</text>
+                <line x1="80" y1="10" x2="80" y2="110" stroke="#111" stroke-width="1.5" stroke-dasharray="4,4"/>
+                <text x="80" y="110" font-size="10" text-anchor="middle" fill="#0066cc">0.74</text>
+                <rect x="30" y="40" width="16" height="50" fill="none" stroke="#d32f2f" stroke-width="1.5"/>
+                <rect x="114" y="40" width="16" height="50" fill="none" stroke="#d32f2f" stroke-width="1.5"/>
+            </svg>
+            <div class="tipo">Ventana con rejillas / louver</div>
+            <div class="medidas">0.74 m ancho × 1.90 m alto</div>
+            <div class="nivel-info">📍 Nivel 1 (N. +3.25m) — REJILLAS DEFLECTO HS4W</div>
+        </div>
+
+        <!-- V-05 -->
+        <div class="croquis-item">
+            <span class="codigo">V-05</span>
+            <svg class="croquis-svg" viewBox="0 0 200 120">
+                <rect x="10" y="10" width="180" height="100" fill="none" stroke="#111" stroke-width="3"/>
+                <text x="100" y="62" font-size="16" text-anchor="middle" fill="#333">V-05</text>
+                <text x="100" y="20" font-size="11" text-anchor="middle" fill="#0066cc">1.99</text>
+                <text x="190" y="65" font-size="11" text-anchor="end" fill="#0066cc">1.60</text>
+                <line x1="100" y1="10" x2="100" y2="110" stroke="#111" stroke-width="1.5" stroke-dasharray="4,4"/>
+                <text x="100" y="110" font-size="10" text-anchor="middle" fill="#0066cc">1.00 + 1.00</text>
+            </svg>
+            <div class="tipo">Ventana corrediza 2 hojas</div>
+            <div class="medidas">1.99 m ancho × 1.60 m alto</div>
+            <div class="nivel-info">📍 Nivel 1 (N. +3.25m)</div>
+        </div>
+
+        <!-- V-07 -->
+        <div class="croquis-item">
+            <span class="codigo">V-07</span>
+            <svg class="croquis-svg" viewBox="0 0 160 120">
+                <rect x="10" y="10" width="140" height="100" fill="none" stroke="#111" stroke-width="3"/>
+                <text x="80" y="62" font-size="16" text-anchor="middle" fill="#333">V-07</text>
+                <text x="80" y="20" font-size="11" text-anchor="middle" fill="#0066cc">0.33</text>
+                <text x="150" y="65" font-size="11" text-anchor="end" fill="#0066cc">1.90</text>
+                <line x1="56" y1="10" x2="56" y2="110" stroke="#111" stroke-width="1.5" stroke-dasharray="4,4"/>
+                <line x1="104" y1="10" x2="104" y2="110" stroke="#111" stroke-width="1.5" stroke-dasharray="4,4"/>
+                <text x="80" y="110" font-size="10" text-anchor="middle" fill="#0066cc">0.33 + 0.33 + 0.33</text>
+            </svg>
+            <div class="tipo">Ventana 3 hojas</div>
+            <div class="medidas">0.33 m ancho (c/u) × 1.90 m alto</div>
+            <div class="nivel-info">📍 Nivel 1 (N. +3.25m)</div>
+        </div>
+
+        <!-- V-08 -->
+        <div class="croquis-item">
+            <span class="codigo">V-08</span>
+            <svg class="croquis-svg" viewBox="0 0 160 120">
+                <rect x="10" y="10" width="140" height="100" fill="none" stroke="#111" stroke-width="3"/>
+                <text x="80" y="62" font-size="16" text-anchor="middle" fill="#333">V-08</text>
+                <text x="80" y="20" font-size="11" text-anchor="middle" fill="#0066cc">0.97</text>
+                <text x="150" y="65" font-size="11" text-anchor="end" fill="#0066cc">2.40</text>
+                <line x1="80" y1="10" x2="80" y2="110" stroke="#111" stroke-width="1.5" stroke-dasharray="4,4"/>
+                <text x="80" y="110" font-size="10" text-anchor="middle" fill="#0066cc">0.49 + 0.49</text>
+                <rect x="30" y="30" width="16" height="60" fill="none" stroke="#d32f2f" stroke-width="1.5"/>
+                <rect x="114" y="30" width="16" height="60" fill="none" stroke="#d32f2f" stroke-width="1.5"/>
+            </svg>
+            <div class="tipo">Ventana con rejillas laterales</div>
+            <div class="medidas">0.97 m ancho × 2.40 m alto</div>
+            <div class="nivel-info">📍 Nivel 1 (N. +3.25m)</div>
+        </div>
+
+        <!-- V-09 -->
+        <div class="croquis-item">
+            <span class="codigo">V-09</span>
+            <svg class="croquis-svg" viewBox="0 0 160 120">
+                <rect x="10" y="10" width="140" height="100" fill="none" stroke="#111" stroke-width="3"/>
+                <text x="80" y="62" font-size="16" text-anchor="middle" fill="#333">V-09</text>
+                <text x="80" y="20" font-size="11" text-anchor="middle" fill="#0066cc">0.99</text>
+                <text x="150" y="65" font-size="11" text-anchor="end" fill="#0066cc">1.20</text>
+                <line x1="80" y1="10" x2="80" y2="110" stroke="#111" stroke-width="1.5" stroke-dasharray="4,4"/>
+                <text x="80" y="110" font-size="10" text-anchor="middle" fill="#0066cc">0.50 + 0.50</text>
+                <rect x="25" y="25" width="110" height="70" fill="none" stroke="#111" stroke-width="1" stroke-dasharray="3,3"/>
+            </svg>
+            <div class="tipo">Ventana fija + abatible</div>
+            <div class="medidas">0.99 m ancho × 1.20 m alto</div>
+            <div class="nivel-info">📍 Nivel 1 (N. +3.25m)</div>
+        </div>
+
+        <!-- CAN-01 -->
+        <div class="croquis-item">
+            <span class="codigo">CAN-01</span>
+            <svg class="croquis-svg" viewBox="0 0 160 120">
+                <rect x="10" y="10" width="140" height="100" fill="none" stroke="#111" stroke-width="3"/>
+                <text x="80" y="62" font-size="16" text-anchor="middle" fill="#333">CAN-01</text>
+                <text x="80" y="20" font-size="11" text-anchor="middle" fill="#0066cc">1.37</text>
+                <text x="150" y="65" font-size="11" text-anchor="end" fill="#0066cc">2.00</text>
+                <line x1="56" y1="10" x2="56" y2="110" stroke="#111" stroke-width="1.5" stroke-dasharray="4,4"/>
+                <line x1="104" y1="10" x2="104" y2="110" stroke="#111" stroke-width="1.5" stroke-dasharray="4,4"/>
+                <text x="80" y="110" font-size="10" text-anchor="middle" fill="#0066cc">0.66 + 0.71</text>
+                <circle cx="135" cy="60" r="4" fill="#111"/>
+            </svg>
+            <div class="tipo">Cancel de aluminio</div>
+            <div class="medidas">1.37 m ancho × 2.00 m alto</div>
+            <div class="nivel-info">📍 Nivel 1</div>
+        </div>
+
+    </div>
+
+    <div class="subtitle">🧾 Lista de materiales</div>
+    <div class="material-list">
+        <ul>
+            <li><span class="highlight">1</span> Ángulo de ½" <em>(sob/PB)</em></li>
+            <li><span class="highlight">1</span> Tubo 1½ x 1½ <em>(sob/PB)</em></li>
+            <li><span class="highlight">1</span> Riel de 3"</li>
+            <li><span class="highlight">3</span> Jambas de 3"</li>
+            <li><span class="highlight">1</span> Zoclo doble vena de 3"</li>
+            <li><span class="highlight">1</span> Cabezal de 3"</li>
+            <li><span class="highlight">1</span> Tapa bolsa corta de 3"</li>
+            <li><span class="highlight">1</span> Escalonado de 3"</li>
+            <li><span class="highlight">1</span> Junquillo de 3"</li>
+            <li><span class="highlight">3</span> Traslape puerta de 6.1 de 3"</li>
+            <li><span class="highlight">3</span> Cerco chapa de 3" (6.1)</li>
+            <li><span class="highlight">3</span> Bolsa de 3"</li>
+            <li><span class="highlight">1</span> Tapa bolsa</li>
+            <li><span class="highlight">8</span> Carretillas de 3"</li>
+            <li><span class="highlight">4</span> Jaladeras de embutir</li>
+            <li><span class="highlight">2</span> Hojas vidrio 260×360 c/6mm</li>
+            <li><span class="highlight">1</span> Kit cancel de baño</li>
+            <li><span class="highlight">5.4</span> m² Vidrio templado c/6mm</li>
+            <li><span class="highlight">4</span> kg Vinil de peine negro</li>
+            <li><span class="highlight">*</span> Insumos: pijas, selladores, felpa, etc.</li>
+        </ul>
+    </div>
+    <div class="obs">⚠️ <strong>Pendiente:</strong> Rejillas de ventilación.</div>
+    <div class="footer-note">Croquis con medidas tomadas de planos — Escala 1:25</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- ================ PLANTAS 2, 3 y 4 ========================== -->
+<!-- ============================================================ -->
+<div class="page">
+    <h1>📐 DEPARTAMENTO PLASCENCIA – PLANTAS 2, 3 y 4</h1>
+    <p><strong>Aluminio:</strong> Negro &nbsp;|&nbsp; <strong>Niveles:</strong> 2 (N. +5.85m), 3 y 4 <em>(misma lista para cada una)</em></p>
+
+    <div class="subtitle">📍 Croquis con medidas</div>
+    <div class="croquis-grid">
+
+        <!-- V-03 -->
+        <div class="croquis-item">
+            <span class="codigo">V-03</span>
+            <svg class="croquis-svg" viewBox="0 0 160 120">
+                <rect x="10" y="10" width="140" height="100" fill="none" stroke="#111" stroke-width="3"/>
+                <text x="80" y="62" font-size="16" text-anchor="middle" fill="#333">V-03</text>
+                <text x="80" y="20" font-size="11" text-anchor="middle" fill="#0066cc">1.23</text>
+                <text x="150" y="65" font-size="11" text-anchor="end" fill="#0066cc">2.40</text>
+                <line x1="80" y1="10" x2="80" y2="110" stroke="#111" stroke-width="1.5" stroke-dasharray="4,4"/>
+                <text x="80" y="110" font-size="10" text-anchor="middle" fill="#0066cc">0.61 + 0.61</text>
+            </svg>
+            <div class="tipo">Ventana 2 hojas</div>
+            <div class="medidas">1.23 m ancho × 2.40 m alto</div>
+            <div class="nivel-info">📍 Nivel 2 (N. +5.85m)</div>
+        </div>
+
+        <!-- V-04 -->
+        <div class="croquis-item">
+            <span class="codigo">V-04</span>
+            <svg class="croquis-svg" viewBox="0 0 160 120">
+                <rect x="10" y="10" width="140" height="100" fill="none" stroke="#111" stroke-width="3"/>
+                <text x="80" y="62" font-size="16" text-anchor="middle" fill="#333">V-04</text>
+                <text x="80" y="20" font-size="11" text-anchor="middle" fill="#0066cc">0.74</text>
+                <text x="150" y="65" font-size="11" text-anchor="end" fill="#0066cc">1.90</text>
+                <line x1="80" y1="10" x2="80" y2="110" stroke="#111" stroke-width="1.5" stroke-dasharray="4,4"/>
+                <text x="80" y="110" font-size="10" text-anchor="middle" fill="#0066cc">0.74</text>
+                <rect x="30" y="40" width="16" height="50" fill="none" stroke="#d32f2f" stroke-width="1.5"/>
+                <rect x="114" y="40" width="16" height="50" fill="none" stroke="#d32f2f" stroke-width="1.5"/>
+            </svg>
+            <div class="tipo">Ventana con rejillas / louver</div>
+            <div class="medidas">0.74 m ancho × 1.90 m alto</div>
+            <div class="nivel-info">📍 Niveles 2, 3 y 4 — REJILLAS DEFLECTO HS4W</div>
+        </div>
+
+        <!-- V-06 -->
+        <div class="croquis-item">
+            <span class="codigo">V-06</span>
+            <svg class="croquis-svg" viewBox="0 0 200 120">
+                <rect x="10" y="10" width="180" height="100" fill="none" stroke="#111" stroke-width="3"/>
+                <text x="100" y="62" font-size="16" text-anchor="middle" fill="#333">V-06</text>
+                <text x="100" y="20" font-size="11" text-anchor="middle" fill="#0066cc">1.99</text>
+                <text x="190" y="65" font-size="11" text-anchor="end" fill="#0066cc">1.20</text>
+                <line x1="100" y1="10" x2="100" y2="110" stroke="#111" stroke-width="1.5" stroke-dasharray="4,4"/>
+                <text x="100" y="110" font-size="10" text-anchor="middle" fill="#0066cc">1.00 + 1.00</text>
+            </svg>
+            <div class="tipo">Ventana corrediza 2 hojas</div>
+            <div class="medidas">1.99 m ancho × 1.20 m alto</div>
+            <div class="nivel-info">📍 Nivel 2 (N. +5.85m)</div>
+        </div>
+
+        <!-- V-07 -->
+        <div class="croquis-item">
+            <span class="codigo">V-07</span>
+            <svg class="croquis-svg" viewBox="0 0 160 120">
+                <rect x="10" y="10" width="140" height="100" fill="none" stroke="#111" stroke-width="3"/>
+                <text x="80" y="62" font-size="16" text-anchor="middle" fill="#333">V-07</text>
+                <text x="80" y="20" font-size="11" text-anchor="middle" fill="#0066cc">0.33</text>
+                <text x="150" y="65" font-size="11" text-anchor="end" fill="#0066cc">1.90</text>
+                <line x1="56" y1="10" x2="56" y2="110" stroke="#111" stroke-width="1.5" stroke-dasharray="4,4"/>
+                <line x1="104" y1="10" x2="104" y2="110" stroke="#111" stroke-width="1.5" stroke-dasharray="4,4"/>
+                <text x="80" y="110" font-size="10" text-anchor="middle" fill="#0066cc">0.33 + 0.33 + 0.33</text>
+            </svg>
+            <div class="tipo">Ventana 3 hojas</div>
+            <div class="medidas">0.33 m ancho (c/u) × 1.90 m alto</div>
+            <div class="nivel-info">📍 Niveles 2, 3 y 4</div>
+        </div>
+
+        <!-- V-08 -->
+        <div class="croquis-item">
+            <span class="codigo">V-08</span>
+            <svg class="croquis-svg" viewBox="0 0 160 120">
+                <rect x="10" y="10" width="140" height="100" fill="none" stroke="#111" stroke-width="3"/>
+                <text x="80" y="62" font-size="16" text-anchor="middle" fill="#333">V-08</text>
+                <text x="80" y="20" font-size="11" text-anchor="middle" fill="#0066cc">0.97</text>
+                <text x="150" y="65" font-size="11" text-anchor="end" fill="#0066cc">2.40</text>
+                <line x1="80" y1="10" x2="80" y2="110" stroke="#111" stroke-width="1.5" stroke-dasharray="4,4"/>
+                <text x="80" y="110" font-size="10" text-anchor="middle" fill="#0066cc">0.49 + 0.49</text>
+                <rect x="30" y="30" width="16" height="60" fill="none" stroke="#d32f2f" stroke-width="1.5"/>
+                <rect x="114" y="30" width="16" height="60" fill="none" stroke="#d32f2f" stroke-width="1.5"/>
+            </svg>
+            <div class="tipo">Ventana con rejillas laterales</div>
+            <div class="medidas">0.97 m ancho × 2.40 m alto</div>
+            <div class="nivel-info">📍 Niveles 2, 3 y 4</div>
+        </div>
+
+        <!-- V-09 -->
+        <div class="croquis-item">
+            <span class="codigo">V-09</span>
+            <svg class="croquis-svg" viewBox="0 0 160 120">
+                <rect x="10" y="10" width="140" height="100" fill="none" stroke="#111" stroke-width="3"/>
+                <text x="80" y="62" font-size="16" text-anchor="middle" fill="#333">V-09</text>
+                <text x="80" y="20" font-size="11" text-anchor="middle" fill="#0066cc">0.99</text>
+                <text x="150" y="65" font-size="11" text-anchor="end" fill="#0066cc">1.20</text>
+                <line x1="80" y1="10" x2="80" y2="110" stroke="#111" stroke-width="1.5" stroke-dasharray="4,4"/>
+                <text x="80" y="110" font-size="10" text-anchor="middle" fill="#0066cc">0.50 + 0.50</text>
+                <rect x="25" y="25" width="110" height="70" fill="none" stroke="#111" stroke-width="1" stroke-dasharray="3,3"/>
+            </svg>
+            <div class="tipo">Ventana fija + abatible</div>
+            <div class="medidas">0.99 m ancho × 1.20 m alto</div>
+            <div class="nivel-info">📍 Niveles 2, 3 y 4</div>
+        </div>
+
+        <!-- CAN-01 -->
+        <div class="croquis-item">
+            <span class="codigo">CAN-01</span>
+            <svg class="croquis-svg" viewBox="0 0 160 120">
+                <rect x="10" y="10" width="140" height="100" fill="none" stroke="#111" stroke-width="3"/>
+                <text x="80" y="62" font-size="16" text-anchor="middle" fill="#333">CAN-01</text>
+                <text x="80" y="20" font-size="11" text-anchor="middle" fill="#0066cc">1.37</text>
+                <text x="150" y="65" font-size="11" text-anchor="end" fill="#0066cc">2.00</text>
+                <line x1="56" y1="10" x2="56" y2="110" stroke="#111" stroke-width="1.5" stroke-dasharray="4,4"/>
+                <line x1="104" y1="10" x2="104" y2="110" stroke="#111" stroke-width="1.5" stroke-dasharray="4,4"/>
+                <text x="80" y="110" font-size="10" text-anchor="middle" fill="#0066cc">0.66 + 0.71</text>
+                <circle cx="135" cy="60" r="4" fill="#111"/>
+            </svg>
+            <div class="tipo">Cancel de aluminio</div>
+            <div class="medidas">1.37 m ancho × 2.00 m alto</div>
+            <div class="nivel-info">📍 Niveles 2, 3 y 4</div>
+        </div>
+
+    </div>
+
+    <div class="subtitle">🧾 Lista de materiales <em>(por cada nivel: 2, 3 y 4)</em></div>
+    <div class="material-list">
+        <ul>
+            <li><span class="highlight">1</span> Ángulo de ½"</li>
+            <li><span class="highlight">1</span> Tubo 1½ x 1½</li>
+            <li><span class="highlight">2</span> Rieles de 3"</li>
+            <li><span class="highlight">3</span> Jambas de 3"</li>
+            <li><span class="highlight">2</span> Zoclo doble vena de 3"</li>
+            <li><span class="highlight">2</span> Cabezal de 3"</li>
+            <li><span class="highlight">2</span> Tapa bolsa corta de 3"</li>
+            <li><span class="highlight">2</span> Escalonado de 3"</li>
+            <li><span class="highlight">2</span> Junquillo de 3"</li>
+            <li><span class="highlight">2</span> Traslape puerta de 6.1 de 3"</li>
+            <li><span class="highlight">2</span> Cerco chapa de 3" (6.1)</li>
+            <li><span class="highlight">2</span> Bolsa de 3"</li>
+            <li><span class="highlight">2</span> Tapa bolsa</li>
+            <li><span class="highlight">8</span> Carretillas de 3"</li>
+            <li><span class="highlight">4</span> Jaladeras de embutir</li>
+            <li><span class="highlight">2</span> Hojas vidrio 260×360 c/6mm</li>
+            <li><span class="highlight">1</span> Kit cancel de baño</li>
+            <li><span class="highlight">5.4</span> m² Vidrio templado c/6mm</li>
+            <li><span class="highlight">5</span> kg Vinil de peine 11</li>
+            <li><span class="highlight">*</span> Insumos: pijas, selladores, felpa, etc.</li>
+        </ul>
+    </div>
+    <div class="obs">⚠️ <strong>Pendiente:</strong> Rejillas de ventilación <em>(en los 3 niveles)</em>.</div>
+    <div class="footer-note">Croquis con medidas tomadas de planos — Escala 1:25</div>
+</div>
+
+</body>
+                  </html>
